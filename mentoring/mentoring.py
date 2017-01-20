@@ -209,6 +209,10 @@ class MentoringBlock(XBlockWithLightChildren, StepParentMixin):
     def partial_json(self, stringify=True):
         return self.feedback_dispatch(self.score.partially_correct, stringify)
 
+    # Decorate the view in order to support multiple devices e.g. mobile
+    # See: https://openedx.atlassian.net/wiki/display/MA/Course+Blocks+API
+    # section 'View @supports(multi_device) decorator'
+    @XBlock.supports("multi_device")
     def student_view(self, context):
         # Migrate stored data if necessary
         self.migrate_fields()
